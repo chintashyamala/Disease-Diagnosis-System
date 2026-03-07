@@ -1,0 +1,275 @@
+:root {
+    --primary: #2563eb;       /* Modern Blue */
+    --primary-dark: #1e40af;
+    --secondary: #64748b;     /* Slate Gray */
+    --accent: #0ea5e9;        /* Sky Blue */
+    --bg: #f1f5f9;           /* Light Gray Background */
+    --card-bg: #ffffff;
+    --text: #1e293b;
+    --danger: #ef4444;
+    --success: #10b981;
+    --border-color: #e2e8f0;
+    --input-bg: #ffffff;
+    --alert-bg: #fffbeb;
+}
+
+[data-theme="dark"] {
+    --primary: #3b82f6;       /* Lighter blue for better contrast */
+    --primary-dark: #60a5fa;
+    --secondary: #94a3b8;     /* Lighter gray for readability */
+    --bg: #0f172a;           /* Deep slate background */
+    --card-bg: #1e293b;      /* Slightly lighter slate for cards */
+    --text: #f8fafc;         /* Off-white text */
+    --border-color: #334155; /* Dark border */
+    --input-bg: #0f172a;     /* Dark inputs */
+    --alert-bg: rgba(245, 158, 11, 0.1); /* Transparent yellow for alerts */
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* --- Navigation --- */
+.navbar {
+    background: var(--card-bg);
+    padding: 1rem 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.nav-item {
+    text-decoration: none;
+    color: var(--secondary);
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.nav-item:hover { color: var(--primary); }
+
+.nav-btn {
+    background: var(--primary);
+    color: white;
+    padding: 8px 20px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background 0.3s;
+}
+
+.nav-btn:hover { background: var(--primary-dark); }
+.nav-btn.logout { background: var(--secondary); }
+
+/* --- Layout Containers --- */
+.container {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 0 20px;
+    flex: 1;
+}
+
+.card {
+    background: var(--card-bg);
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.centered-form {
+    max-width: 400px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+/* --- Typography --- */
+h1 { color: var(--text); margin-bottom: 10px; }
+h2 { color: var(--primary); margin-top: 0; }
+p.subtitle { color: var(--secondary); margin-bottom: 30px; }
+
+/* --- Form Elements --- */
+input[type="text"], input[type="password"] {
+    background-color: var(--input-bg);
+    color: var(--text);
+    width: 100%;
+    padding: 12px 15px;
+    margin: 8px 0 20px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-family: inherit;
+    box-sizing: border-box;
+    transition: border-color 0.3s;
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+button {
+    width: 100%;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: white;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+/* --- Search & Tags --- */
+#searchBar { margin-bottom: 15px; }
+
+.symptom-container {
+    height: 300px;
+    overflow-y: auto;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 10px;
+    background: var(--card-bg);
+    margin-bottom: 20px;
+}
+
+.symptom-item {
+    padding: 8px 12px;
+    border-bottom: 1px solid #eee;
+    transition: background 0.2s;
+    border-radius: 6px;
+}
+
+.symptom-item:hover { background: #e0f2fe; }
+
+.symptom-tag {
+    background: var(--accent);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.remove-btn {
+    cursor: pointer;
+    background: rgba(255,255,255,0.3);
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+}
+
+/* --- Alerts --- */
+.alert-box {
+    background: #fee2e2;
+    color: #991b1b;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    border: 1px solid #fecaca;
+    display: flex;
+    justify-content: space-between;
+}
+
+.closebtn { cursor: pointer; font-weight: bold; }
+
+/* --- Table --- */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: var(--card-bg);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+th, td { padding: 16px; text-align: left; border-bottom: 1px solid var(--border-color); }
+th { background: rgba(0,0,0,0.2); color: var(--text); font-weight: 600; }
+tr:last-child td { border-bottom: none; }
+tr:hover {
+    background-color: rgba(255, 255, 255, 0.05); /* Works in both light and dark mode */
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    color: var(--secondary);
+    font-size: 0.9rem;
+    margin-top: auto;
+}
+
+/* Success Alert (Green) */
+.alert-box.success {
+    background: #dcfce7;
+    color: #166534;
+    border: 1px solid #bbf7d0;
+}
+
+/* --- Print Styles for PDF Generation --- */
+@media print {
+    /* Hide the navigation bar and all buttons so they don't appear on the PDF */
+    .navbar, button, .nav-btn, a {
+        display: none !important;
+    }
+
+    /* Make the background white to save ink/look clean */
+    body {
+        background-color: white !important;
+        margin: 0;
+        padding: 0;
+    }
+
+    /* Remove the card shadow and add a simple border for the document */
+    .card {
+        box-shadow: none !important;
+        border: 2px solid #000 !important;
+        margin: 0 auto;
+        padding: 40px;
+        max-width: 100%;
+    }
+
+    /* Ensure text colors are dark for readability */
+    h2, h1, p {
+        color: black !important;
+    }
+}

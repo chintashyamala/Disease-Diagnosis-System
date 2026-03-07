@@ -1,0 +1,79 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="centered-form">
+    <div class="card" style="text-align: center;">
+        <i class="fa-solid fa-clipboard-check" style="font-size: 4rem; color: var(--primary); margin-bottom: 20px;"></i>
+        
+        <h2>Diagnostic Report</h2>
+        <p class="subtitle">Based on the symptoms provided, here is the AI Confidence Matrix:</p>
+
+        <div style="text-align: left; margin: 30px 0; padding: 20px; background: var(--input-bg); border-radius: 12px; border: 1px solid var(--border-color);">
+            
+            {% for disease, prob in predictions %}
+            
+            {% set bar_color = '#94a3b8' %}
+            {% if loop.index == 1 %}
+                {% set bar_color = 'var(--primary)' %}
+            {% elif loop.index == 2 %}
+                {% set bar_color = '#38bdf8' %}
+            {% endif %}
+
+            <div style="margin-bottom: 20px;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-weight: 500;">
+                    <span style="color: var(--text); font-size: 1.1rem;">
+                        {% if loop.index == 1 %}<i class="fa-solid fa-star" style="color: #f59e0b; margin-right: 5px;"></i>{% endif %}
+                        {{ disease }}
+                    </span>
+                    <span style="color: var(--primary); font-weight: 600;">{{ prob }}%</span>
+                </div>
+                
+                <div style="width: 100%; background-color: var(--border-color); border-radius: 8px; height: 14px; overflow: hidden;">
+                    
+                    <div class="dynamic-bar" 
+                         data-width="{{ prob }}" 
+                         data-color="{{ bar_color }}" 
+                         style="height: 100%; width: 0%; transition: width 1.5s ease-in-out;">
+                    </div>
+                    
+                </div>
+            </div>
+            {% endfor %}
+            
+        </div>
+        <p style="font-size: 0.85rem; color: var(--text); margin-bottom: 30px; background: var(--alert-bg); padding: 12px; border-radius: 8px; border-left: 4px solid #f59e0b; text-align: left;">
+            <i class="fa-solid fa-triangle-exclamation" style="color: #f59e0b; margin-right: 5px;"></i> 
+            <strong>Disclaimer:</strong> This is a preliminary assessment indicating probabilities based on a machine learning model. It is not a clinical diagnosis. Please consult a healthcare professional.
+        </p>
+
+        <div style="display: flex; flex-direction: column;">
+            <a href="{{ url_for('index') }}" class="nav-btn" style="text-align: center; padding: 12px; margin-bottom: 15px;">
+                <i class="fa-solid fa-arrow-left"></i> Run Another Assessment
+            </a>
+            
+            <button onclick="window.print()" class="nav-btn" style="background: var(--success); text-align: center; padding: 12px; margin-top: 0;">
+                <i class="fa-solid fa-file-pdf"></i> Save as PDF / Print
+            </button>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // This script takes the data safely hidden from VS Code and applies it to the CSS
+    document.addEventListener("DOMContentLoaded", function() {
+        const bars = document.querySelectorAll('.dynamic-bar');
+        
+        bars.forEach(bar => {
+            // Apply the color
+            bar.style.backgroundColor = bar.getAttribute('data-color');
+            
+            // Add a slight delay before applying the width to trigger the animation
+            setTimeout(() => {
+                bar.style.width = bar.getAttribute('data-width') + '%';
+            }, 100);
+        });
+    });
+</script>
+{% endblock %}

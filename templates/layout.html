@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediScan AI | Intelligent Disease Prediction</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fa-solid fa-heart-pulse"></i> MediScan AI
+        </div>
+        
+        <div class="nav-links" style="display: flex; align-items: center; gap: 15px;">
+            
+            <button id="theme-toggle" style="background: none; border: none; color: var(--secondary); font-size: 1.2rem; cursor: pointer; padding: 0 5px;">
+                <i class="fa-solid fa-moon"></i>
+            </button>
+            
+            {% if current_user.is_authenticated %}
+                <span class="user-welcome" style="white-space: nowrap; color: var(--text);">Hello, <b>{{ current_user.username }}</b></span>
+                
+                <a href="{{ url_for('index') }}" class="nav-item"><i class="fa-solid fa-house"></i> Dashboard</a>
+                <a href="{{ url_for('history') }}" class="nav-item"><i class="fa-solid fa-clock-rotate-left"></i> History</a>
+                <a href="{{ url_for('logout') }}" class="nav-btn logout" style="white-space: nowrap;">Logout</a>
+            {% else %}
+                <a href="{{ url_for('login') }}" class="nav-item">Login</a>
+                <a href="{{ url_for('register') }}" class="nav-btn" style="white-space: nowrap;">Sign Up</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <div class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert-box {{ category }}">
+                        {{ message }}
+                        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </div>
+
+    <footer>
+        <p>&copy; 2026 MediScan AI Project. Not a substitute for professional medical advice.</p>
+    </footer>
+
+    {% block scripts %}{% endblock %}
+
+<script>
+        const toggleBtn = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+        
+        // Check local storage for saved theme, default to light
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        htmlElement.setAttribute('data-theme', currentTheme);
+        
+        // Update icon on load
+        if(currentTheme === 'dark') {
+            toggleBtn.innerHTML = '<i class="fa-solid fa-sun"></i>';
+        }
+
+        // Toggle functionality
+        toggleBtn.addEventListener('click', () => {
+            let theme = htmlElement.getAttribute('data-theme');
+            if(theme === 'dark') {
+                htmlElement.setAttribute('data-theme', 'light');
+                localStorage.setItem('theme', 'light');
+                toggleBtn.innerHTML = '<i class="fa-solid fa-moon"></i>';
+            } else {
+                htmlElement.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+                toggleBtn.innerHTML = '<i class="fa-solid fa-sun"></i>';
+            }
+        });
+    </script>
+
+</body>
+</html>

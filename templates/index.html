@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="card">
+    <div style="text-align: center; margin-bottom: 30px;">
+        <h2><i class="fa-solid fa-stethoscope"></i> AI Symptom Checker</h2>
+        <p class="subtitle">Search and select your symptoms below to get an instant AI prediction.</p>
+    </div>
+
+    <form action="/predict" method="POST">
+        <div style="position: relative;">
+            <i class="fa-solid fa-magnifying-glass" style="position: absolute; left: 15px; top: 15px; color: #94a3b8;"></i>
+            <input type="text" id="searchBar" placeholder="Search symptoms (e.g., headache, fever)..." style="padding-left: 40px;">
+        </div>
+
+        <div id="selected-symptoms-box" style="display: none; margin-bottom: 15px;">
+            <div id="selection-container"></div>
+        </div>
+        
+        <div class="symptom-container" id="symptomList">
+            {% for raw_name, pretty_name in symptoms %}
+            <div class="symptom-item">
+                <label style="display: flex; align-items: center; width: 100%; cursor: pointer;">
+                    <input type="checkbox" name="symptoms" value="{{ raw_name }}" style="margin-right: 12px; width: 18px; height: 18px;">
+                    {{ pretty_name }}
+                </label>
+            </div>
+            {% endfor %}
+        </div>
+
+        <button type="submit">Analyze Symptoms <i class="fa-solid fa-arrow-right"></i></button>
+    </form>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+{% endblock %}

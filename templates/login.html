@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="centered-form">
+    <div class="card">
+        <h2>Welcome Back</h2>
+        <p class="subtitle">Login to access your medical history</p>
+        
+        <form action="/login" method="POST">
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <div style="text-align: right; margin-bottom: 15px;">
+    <a href="{{ url_for('reset_password') }}" style="font-size: 0.85rem; color: var(--secondary);">Forgot Password?</a>
+</div>
+<button type="submit">Login</button>
+        </form>
+        
+        <p style="margin-top: 20px; font-size: 0.9rem;">
+            New here? <a href="{{ url_for('register') }}" style="color: var(--primary);">Create an account</a>
+        </p>
+    </div>
+</div>
+{% endblock %}
