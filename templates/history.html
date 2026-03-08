@@ -2,8 +2,8 @@
 
 {% block content %}
 <div class="card">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-        <h2>My Health Reports</h2>
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 20px;">
+        <h2 style="margin: 0;">My Health Reports</h2>
         
         <div style="display: flex; gap: 10px;">
             <button onclick="exportTableToCSV('My_Medical_History.csv')" class="nav-btn" style="background: var(--success); font-size: 0.9rem; padding: 8px 15px; border: none; cursor: pointer;">
@@ -31,7 +31,7 @@
                 </td>
                 <td>{{ record.symptoms_input }}</td>
                 <td>
-                    <span style="background: #dbeafe; color: #1e40af; padding: 5px 10px; border-radius: 12px; font-weight: 600; font-size: 0.9rem;">
+                    <span style="background: #dbeafe; color: #1e40af; padding: 5px 10px; border-radius: 12px; font-weight: 600; font-size: 0.9rem; white-space: nowrap; display: inline-block;">
                         {{ record.predicted_disease }}
                     </span>
                 </td>

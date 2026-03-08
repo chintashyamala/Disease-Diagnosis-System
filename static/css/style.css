@@ -278,42 +278,33 @@ footer {
    MOBILE RESPONSIVENESS (Screens under 768px)
    ========================================= */
 @media screen and (max-width: 768px) {
-    /* 1. Fix the Navbar */
+    /* 1. Navbar Fixes */
     .navbar {
-        flex-direction: column; /* Stacks the logo on top, links on bottom */
-        padding: 15px;
-        gap: 15px;
+        flex-direction: column;
+        padding: 12px;
+        gap: 12px;
     }
-
     .nav-links {
-        flex-wrap: wrap; /* Allows buttons to wrap to a new line if needed */
+        display: flex;
+        flex-wrap: wrap; /* Allows items to drop to a new line cleanly */
         justify-content: center;
+        align-items: center;
         gap: 10px;
         width: 100%;
     }
-
-    /* Hide the "Hello, Name" text on mobile to save space */
-    .user-welcome {
-        display: none !important;
-    }
-
+    .user-welcome { display: none !important; }
     .nav-btn, .nav-item {
-        font-size: 0.9rem;
+        font-size: 0.85rem;
         padding: 8px 12px;
+        white-space: nowrap; /* Prevents button text from breaking in half */
     }
 
-    /* 2. Fix the Main Cards */
-    .centered-form {
-        padding: 10px;
-    }
-
+    /* 2. Card & Content Fixes */
+    .centered-form { padding: 10px; }
     .card {
         width: 100%;
         padding: 20px 15px;
         margin-top: 10px;
     }
-    
-    h2 {
-        font-size: 1.5rem;
-    }
+    h2 { font-size: 1.4rem; }
 }
