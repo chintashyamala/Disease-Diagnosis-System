@@ -14,7 +14,8 @@
     </div>
 
     {% if records %}
-    <table>
+    <div style="overflow-x: auto; width: 100%; border-radius: 8px;">
+        <table style="min-width: 600px;">
         <thead>
             <tr>
                 <th>Date</th>
@@ -45,6 +46,7 @@
             {% endfor %}
         </tbody>
     </table>
+    </div>
     {% else %}
         <div style="text-align: center; padding: 40px; color: var(--secondary);">
             <i class="fa-solid fa-file-medical" style="font-size: 3rem; margin-bottom: 20px; opacity: 0.5;"></i>
